@@ -1,0 +1,53 @@
+<app-navbar [items]="items" (openEvent)="changeShowCart()" />
+
+<div class="min-h-screen bg-slate-950 text-white p-2 sm:p-2">
+  <div class="grid grid-cols-1 md:grid-cols-12 gap-1 max-w-8xl mx-auto items-start">
+    <div [className]="showCart ? 'md:col-span-7' : 'md:col-span-12'">
+      <div [className]="showCart ? 'md:col-span-6' : 'md:col-span-10'">
+        <h1 class="text-xl font-black text-white tracking-wider uppercase mb-2 pt-3 text-center">
+          Catalogo de Productos App
+        </h1>
+      </div>
+      <app-catalogo [products]="products" class="" (productEventEmitter)="onAddCart($event)" />
+    </div>
+
+    @if (showCart) {
+      <div class="md:col-span-5">
+        @if (items.length > 0) {
+          <app-carrito [items]="items" [total]="totalCart" (idProduct)="deleteCart($event)" />
+        } @else {
+          <div
+            class="min-h-dvh bg-slate-950 p-4 sm:p-8 text-white flex flex-col justify-start items-center"
+          >
+            <div class="w-full max-w-5xl">
+              <h2
+                class="text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-indigo-300 mb-6 tracking-tight flex items-center gap-2"
+              >
+                <svg
+                  xmlns="http://w3.org"
+                  class="h-8 w-8 text-purple-400"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"
+                  />
+                </svg>
+                Carrito de Compras
+              </h2>
+              <h2
+                class="text-xl font-black text-white tracking-wider uppercase mb-5 pt-2 text-center"
+              >
+                No hay elementos en el carro de compras.
+              </h2>
+            </div>
+          </div>
+        }
+      </div>
+    }
+  </div>
+</div>
